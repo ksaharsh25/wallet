@@ -1,0 +1,50 @@
+{%load static%}
+{%block content%}
+<!DOCTYPE html>  
+<html>  
+<head>  
+{% block title %}
+    <title>List of Users</title>
+{% endblock title %}  
+    <style>  
+        table{  
+            border-collapse: collapse;  
+            width: 100%;   
+        }  
+    th,td{  
+        border: 2px solid green;   
+        padding: 15px;  
+    }  
+               
+    </style>  
+  </head>  
+<body>  
+  <table>
+    <thead>  
+    <tr>  
+        <th>Name</th>  
+        <th>Account number</th>  
+        <th>Balance</th>
+        <th>Balance</th>    
+    </tr> 
+    </thead> 
+    {%for i in }
+    <tr>  
+        <td>1data</td>  
+        <td>1data</td>  
+        <td>1data</td>  
+    </tr>  
+    <tr>  
+        <td>2 data</td>  
+        <td>2 data</td>  
+        <td>2 data</td>  
+    </tr>  
+    <tr>  
+        <td>3 data</td>  
+        <td>3 data</td>  
+        <td>3 data</td>  
+    </tr>  
+</table>  
+</body>  
+</html>  
+{%endblock%}

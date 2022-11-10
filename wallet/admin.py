@@ -8,3 +8,7 @@ class PaymentAdmin(admin.ModelAdmin):
 @admin.register(Register)
 class LoginAdmin(admin.ModelAdmin):
     list_display=['mobile','email']   
+
+@admin.register(balance)
+class BalanceAdmin(admin.ModelAdmin):
+    list_display=['admin','account','amount','Balance']    

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Add amount
+    </title>
+<form method="post">
+    {%csrf_token%}
+    <label for="Account number"></label>
+    <input type="integer" name="account" placeholder="Account number">
+    <label for="Amount"></label>
+    <input type="integer" name="amount" placeholder="Enter Amount">
+    <input type="submit" value="Submit">
+    </form>
+</html>
