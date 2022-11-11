@@ -1,3 +1,5 @@
+{%load static%}
+{%block content%}
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -13,15 +15,7 @@
     {%csrf_token%}
     <h1>Register</h1>
     <div class="content">
-        <div class="input-field">
-            <input type="text" placeholder="Name" name="name" autocomplete="nope">
-          </div>
-          <div class="input-field">
-            <input type="number" placeholder="Mobile number" name="mobile" autocomplete="nope">
-          </div>
-        <div class="input-field">
-            <input type="email" placeholder="Email" name="email" autocomplete="nope">
-        </div>
+       {{form.as_p}}
       <!-- <div class="input-field">
         <input type="password" placeholder="Password"  autocomplete="new-password">
       </div> -->
@@ -38,3 +32,4 @@
 
 </body>
 </html>
+{%endblock%}

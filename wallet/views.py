@@ -3,17 +3,17 @@ from .models import *
 import random 
 # Create your views here.
 from .forms import *
-def register(request):
-    if request.method== 'POST':
-        email=request.POST['email']
-        mobile=request.POST['mobile']
-        name=request.POST['name']
+# def register(request):
+#     if request.method== 'POST':
+#         email=request.POST['email']
+#         mobile=request.POST['mobile']
+#         name=request.POST['name']
         
-        # print(password)
-        payment=Register(email=email,mobile=mobile,name=name)
-        payment.save()     
-        return redirect('login')
-    return render(request,'signup.html')
+#         # print(password)
+#         payment=Register(email=email,mobile=mobile,name=name)
+#         payment.save()     
+#         return redirect('login')
+#     return render(request,'signup.html')
 
 
 def get_otp():
@@ -30,8 +30,6 @@ def login(request):
         try:
             mob=Login.objects.get(mobile=mobile)
 
-            
-
         except:
             Login.objects.create(mobile=mobile)
             mob=Login.objects.get(mobile=mobile)
@@ -45,6 +43,8 @@ def login(request):
 
 
 def verify(request):
+    # Add=Login.objects.get(id=pk)
+    # ID={"add":Add}
     mobile=request.session['mobile']
     # context={'mobile':mobile}
 
@@ -54,41 +54,54 @@ def verify(request):
 
         if verify.otp == int(otp):
             Login.objects.filter(mobile=mobile)
+            pk = Login.objects.get('pk')
+            Add=Login.objects.get(id=pk)
+            ID={"add":Add}
             print("Verified")
-            return redirect('wallet')
+            return redirect('/wallet/<str:pk>')
         else:
             print("Wrong OTP!")
-    return render(request,"verify.html")        
+    return render(request,"verify.html",ID)        
 
 def list(request):
-    List=balance.objects.all()
+    List=Login.objects.all()
     
     return render(request,"list.html",{'list':List})
 
-def wallet(request):
-    Add=balance.objects.all()
-    # if request.method=="POST":
-    #     Balance=request.POST['Balance']
-    #     amount=request.POST['amount']
-    #     add_money=Balance+int(amount)
-    #     withdraw=Balance-int(amount)
-    #     user=balance.objects.filter(add_money=add_money,withdraw=withdraw)
-    #     user.save()
-    return render(request,"wallet.html",{"add":Add})
+def wallet(request,pk):
+    Add=Login.objects.get(id=pk)
+    ID={"add":Add}
+   
+        
+    return render(request,"wallet.html",ID)
 
-def add(request):
+def add(request,pk):
+    Add=Login.objects.get(id=pk)
+    ID={"add":Add}
     if request.method=='POST':
         account=request.POST['account']
         amount=request.POST['amount']
 
-        add=balance(account=account,amount=amount)
+        add=Login(account=account,amount=amount)
         add.save()
-    return render(request,"add.html")
+    return render(request,"add.html",ID) 
 
 
+def create(request):
+    form = EmployeeForm()
 
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'signup.html', context)
 def edit(request,pk):
-    user=balance.objects.get(id=pk)
+    user=Login.objects.get(id=pk)
     form=EmployeeForm(instance=user) 
     if request.method=='POST':
         form=EmployeeForm(request.POST,instance=user)

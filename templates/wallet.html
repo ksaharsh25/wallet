@@ -11,10 +11,12 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <form method="post">
-    {%csrf_token%}
-  {%for i in add%}
+  {%csrf_token%}
+
+
 	<div class="wallet-container text-center">
-		<p class="page-title"><i class="fa fa-align-left"></i>My {i.name}<i class="fa fa-user"></i></p>
+		
+		<p class="page-title"><i class="fa fa-align-left"></i>My {{add.name}} <i class="fa fa-user"></i></p>
 
 		<div class="amount-box text-center">
 			<img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw" alt="wallet">
@@ -62,7 +64,7 @@
 				</div>
 			</div>
 </div>
-{%wndfor%}
+
 </form>
 </html>
 {%endblock%}
