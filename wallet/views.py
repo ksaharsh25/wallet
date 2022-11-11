@@ -43,25 +43,23 @@ def login(request):
 
 
 def verify(request):
-    # Add=Login.objects.get(id=pk)
-    # ID={"add":Add}
+    
     mobile=request.session['mobile']
     # context={'mobile':mobile}
-
+    
     if request.method=="POST":
         otp=request.POST.get('otp')
         verify=Login.objects.get(mobile=mobile)
 
         if verify.otp == int(otp):
             Login.objects.filter(mobile=mobile)
-            pk = Login.objects.get('pk')
-            Add=Login.objects.get(id=pk)
-            ID={"add":Add}
+          
+            
             print("Verified")
-            return redirect('/wallet/<str:pk>')
+            return redirect('wallet')
         else:
             print("Wrong OTP!")
-    return render(request,"verify.html",ID)        
+    return render(request,"verify.html")        
 
 def list(request):
     List=Login.objects.all()
@@ -69,14 +67,14 @@ def list(request):
     return render(request,"list.html",{'list':List})
 
 def wallet(request,pk):
-    Add=Login.objects.get(id=pk)
+    Add=Login.objects.get(Id=pk)
     ID={"add":Add}
    
         
     return render(request,"wallet.html",ID)
 
 def add(request,pk):
-    Add=Login.objects.get(id=pk)
+    Add=Login.objects.get(Id=pk)
     ID={"add":Add}
     if request.method=='POST':
         account=request.POST['account']
@@ -94,8 +92,11 @@ def create(request):
         form = EmployeeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list')
-
+            return redirect('login')
+        else:   
+            print('Error')
+        
+            
     context = {
         'form': form,
     }

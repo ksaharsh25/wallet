@@ -15,6 +15,6 @@ class Login(models.Model):
     account= models.IntegerField(max_length=100,null=True)
     add_money= models.IntegerField(max_length=100,null=True)
     withdraw  = models.IntegerField(max_length=100,null=True)
-    id = models.IntegerField(primary_key=True )
+    Id = models.IntegerField(primary_key=True )
     
     
