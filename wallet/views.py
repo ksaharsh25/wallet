@@ -43,7 +43,8 @@ def login(request):
 
 
 def verify(request):
-    
+    Add=Login.objects.all()
+   
     mobile=request.session['mobile']
     # context={'mobile':mobile}
     
@@ -52,14 +53,14 @@ def verify(request):
         verify=Login.objects.get(mobile=mobile)
 
         if verify.otp == int(otp):
-            Login.objects.filter(mobile=mobile)
-          
+            Login.objects.filter(mobile=mobile).order_by('Id')
+            
             
             print("Verified")
-            return redirect('wallet')
+            return redirect('wallet' )
         else:
             print("Wrong OTP!")
-    return render(request,"verify.html")        
+    return render(request,"verify.html",{"add":Add})        
 
 def list(request):
     List=Login.objects.all()
@@ -79,7 +80,8 @@ def add(request,pk):
     if request.method=='POST':
         account=request.POST['account']
         amount=request.POST['amount']
-
+        Balance=request.POST['Balance']
+        Balance+=int(amount)
         add=Login(account=account,amount=amount)
         add.save()
     return render(request,"add.html",ID) 

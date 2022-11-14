@@ -8,7 +8,8 @@ urlpatterns=[
     path('add/<str:pk>',add,name="add"),
     # path('create',create,name="create"),
     path('edit/<str:pk>', edit, name='edit'),
-    path('list',list,name="list")
+    path('list',list,name="list"),
+    
     # path('delete/', views.delete_employee, name='delete-employee'),
 
 ]
