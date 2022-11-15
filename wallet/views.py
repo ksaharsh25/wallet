@@ -1,8 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from .models import *
 import random 
+
 # Create your views here.
-from .forms import *
+# from django.template import loader
+from django.views.decorators.csrf import csrf_protect
 # def register(request):
 #     if request.method== 'POST':
 #         email=request.POST['email']
@@ -14,7 +16,15 @@ from .forms import *
 #         payment.save()     
 #         return redirect('login')
 #     return render(request,'signup.html')
+def register(request):
+    if request.method=="POST":
+        name=request.POST['name']
+        mobile=request.POST['mobile']
 
+        admi=Person(name=name,mobile=mobile)
+        admi.save()
+        return redirect('login')
+    return render(request, 'signup.html',)
 
 def get_otp():
     otp = ""
@@ -28,11 +38,11 @@ def login(request):
         mobile=request.POST.get('mobile')
         
         try:
-            mob=Login.objects.get(mobile=mobile)
+            mob=Person.objects.get(mobile=mobile)
 
         except:
-            Login.objects.create(mobile=mobile)
-            mob=Login.objects.get(mobile=mobile)
+            Person.objects.create(mobile=mobile)
+            mob=Person.objects.get(mobile=mobile)
 
         OTP=get_otp()
         mob.otp=OTP
@@ -43,76 +53,69 @@ def login(request):
 
 
 def verify(request):
-    Add=Login.objects.all()
+    Add=Person.objects.all()
    
     mobile=request.session['mobile']
     # context={'mobile':mobile}
     
     if request.method=="POST":
         otp=request.POST.get('otp')
-        verify=Login.objects.get(mobile=mobile)
+        verify=Person.objects.get(mobile=mobile)
 
         if verify.otp == int(otp):
-            Login.objects.filter(mobile=mobile).order_by('Id')
+            Person.objects.filter(mobile=mobile)
             
-            
-            print("Verified")
-            return redirect('wallet' )
+         
+            return redirect("wallet",mobile)
         else:
             print("Wrong OTP!")
     return render(request,"verify.html",{"add":Add})        
 
-def list(request):
-    List=Login.objects.all()
+def Wallet(request,mobile):
+    data = Person.objects.filter(mobile=mobile).first()
+    request.session['mobile']=mobile 
+    # if 
+
+    return render(request,"wallet.html",{"Data":data})
     
-    return render(request,"list.html",{'list':List})
-
-def wallet(request,pk):
-    Add=Login.objects.get(Id=pk)
-    ID={"add":Add}
-   
+# @csrf_protect
+def add(request,mobile):
+    request.session['mobile']=mobile 
+    Add=Person.objects.get(mobile=mobile) 
+    # if request.method=='POST':
         
-    return render(request,"wallet.html",ID)
-
-def add(request,pk):
-    Add=Login.objects.get(Id=pk)
-    ID={"add":Add}
-    if request.method=='POST':
-        account=request.POST['account']
-        amount=request.POST['amount']
-        Balance=request.POST['Balance']
-        Balance+=int(amount)
-        add=Login(account=account,amount=amount)
-        add.save()
+        
+        # account=request.POST['account']
+        # amount=request.POST['amount']
+        
+        
+        # add=User(account=account,amount=amount)
+        # i=add.amount
+        # a=add.Balance
+        # a+=i
+        # # a=int(a)-int(i)
+        # add.Balance=(a)
+        # add.save()
+          
+            
+    ID={"add":Add}   
     return render(request,"add.html",ID) 
 
 
-def create(request):
-    form = EmployeeForm()
 
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-        else:   
-            print('Error')
-        
-            
-    context = {
-        'form': form,
-    }
-    return render(request, 'signup.html', context)
-def edit(request,pk):
-    user=Login.objects.get(id=pk)
-    form=EmployeeForm(instance=user) 
-    if request.method=='POST':
-        form=EmployeeForm(request.POST,instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('list')
-    context = {
-        'user': user,
-        'form': form,
-    }        
-    return render(request,"edit.html",context)    
+# def edit(request,pk):
+#     user=User.objects.get(Id=pk)
+#     form=EmployeeForm(instance=user) 
+#     if request.method=='POST':
+#         form=EmployeeForm(request.POST,instance=user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('list')
+#     context = {
+#         'user': user,
+#         'form': form,
+#     }        
+#     return render(request,"edit.html",context)    
+
+
+

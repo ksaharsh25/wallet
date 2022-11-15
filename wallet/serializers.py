@@ -3,8 +3,8 @@ from .models import *
 
 class API(serializers.ModelSerializer):
     class Meta:
-        model=balance
-        fields=('admin','balance','id','account')
+        model=wallet
+        fields=('user','Balance','add_money','account','withdraw')
 
 
        
