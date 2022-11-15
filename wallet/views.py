@@ -74,7 +74,7 @@ def verify(request):
 def Wallet(request,mobile):
     data = Person.objects.filter(mobile=mobile).first()
     request.session['mobile']=mobile 
-    # if 
+    
 
     return render(request,"wallet.html",{"Data":data})
     
@@ -101,7 +101,8 @@ def add(request,mobile):
     ID={"add":Add}   
     return render(request,"add.html",ID) 
 
-
+def withdraw(request):
+    return render(request,"withdraw.html")
 
 # def edit(request,pk):
 #     user=User.objects.get(Id=pk)

@@ -6,6 +6,7 @@ urlpatterns=[
     path('verify',verify,name="verify"),
     path('wallet/<str:mobile>',Wallet,name="wallet"),
     path('add/<str:mobile>',add,name="add"),
+    path('withdraw/<str:mobile>',withdraw,name="withdraw"),
     # path('create',create,name="create"),
     # path('edit/<str:pk>', edit, name='edit'),
     # path('list',list,name="list"),
