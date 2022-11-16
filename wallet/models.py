@@ -9,16 +9,17 @@ class Person(models.Model):
     otp=models.IntegerField(max_length=100,blank=True,null=True)
     email=models.EmailField(max_length=100,blank=True)
     name=models.CharField(max_length=100,blank=True)
-    account_number= models.IntegerField(max_length=100,null=True)
+    
     Bank_name=models.IntegerField(max_length=50,blank=True,null=True)
     IFSC_Code=models.CharField(max_length=100,blank=True)
     
     
 class wallet(models.Model):
-    use=models.OneToOneField(Person,on_delete=models.CASCADE,primary_key=True)
+    use=models.OneToOneField(Person,on_delete=models.CASCADE,primary_key=True,)
+    account_number= models.IntegerField(max_length=100,blank=True,null=True)
     Balance=models.IntegerField(blank=True,null=True) 
-    add_money= models.IntegerField(max_length=100,null=True)
-    withdraw=models.IntegerField(max_length=100,null=True)
+    add_money= models.IntegerField(max_length=100,null=True,blank=True)
+    withdraw=models.IntegerField(max_length=100,null=True,blank=True)
     
     def __str__(self):
         return str(self.use) 

@@ -20,7 +20,7 @@ def register(request):
     if request.method=="POST":
         name=request.POST['name']
         mobile=request.POST['mobile']
-
+        
         admi=Person(name=name,mobile=mobile)
         admi.save()
         return redirect('login')
@@ -82,27 +82,22 @@ def Wallet(request,mobile):
 def add(request,mobile):
     request.session['mobile']=mobile 
     Add=Person.objects.get(mobile=mobile) 
-    # if request.method=='POST':
-        
-        
-        # account=request.POST['account']
-        # amount=request.POST['amount']
-        
-        
-        # add=User(account=account,amount=amount)
-        # i=add.amount
-        # a=add.Balance
-        # a+=i
-        # # a=int(a)-int(i)
-        # add.Balance=(a)
-        # add.save()
+    
+    #     account_number=request.POST['account_number']
+    #     add_money=request.POST['add_money']
+
+    #     gift=wallet(account_number=account_number,add_money=add_money)
+    #     gift.save()
+
           
             
     ID={"add":Add}   
     return render(request,"add.html",ID) 
 
-def withdraw(request):
-    return render(request,"withdraw.html")
+def withdraw(request,mobile):
+    base=request.session['mobile']=mobile
+    id={"base":base}
+    return render(request,"withdraw.html",{"id":id})
 
 # def edit(request,pk):
 #     user=User.objects.get(Id=pk)

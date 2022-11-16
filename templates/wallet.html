@@ -28,8 +28,10 @@
 		
 		<div class="btn-group text-center">
 			
-			<a href="{% url 'add' mobile %}">Add money</a>
-			<button>Withdraw</button>
+			<a class="btn btn-primary" href="{% url 'add' Data.mobile %}" role="button">Add money</a>
+
+
+			<a class="btn btn-primary" href="{% url 'withdraw' Data.mobile %}" role="button">Withdraw money</a>
 			</div>
 
 			<div class="txn-history">

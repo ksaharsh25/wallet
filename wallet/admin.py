@@ -3,11 +3,11 @@ from .models import *
 # Register your models here.
 @admin.register(Person)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display=['mobile','otp','name','account_number']
+    list_display=['mobile','otp','name']
 
 @admin.register(wallet)  
 class WalletAdmin(admin.ModelAdmin):
-    list_display=['Balance','add_money','withdraw']  
+    list_display=['use','Balance','add_money','withdraw']  
 
 # @admin.register(Register)
 # class LoginAdmin(admin.ModelAdmin):
