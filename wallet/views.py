@@ -78,7 +78,7 @@ def Wallet(request,mobile):
 
     return render(request,"wallet.html",{"Data":data})
     
-# @csrf_protect
+
 def add(request,mobile):
     request.session['mobile']=mobile 
     Add=Person.objects.get(mobile=mobile) 
