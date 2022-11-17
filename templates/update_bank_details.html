@@ -1,0 +1,17 @@
+
+
+{%load static%}
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<title>Edit</title>
+    <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Add money</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-success">
+    </form>
+</html>
+{% endblock  %}

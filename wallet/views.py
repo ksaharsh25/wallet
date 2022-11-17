@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse
 from .models import *
 import random 
-
+from .forms import *
 # Create your views here.
 # from django.template import loader
 from django.views.decorators.csrf import csrf_protect
@@ -23,8 +23,20 @@ def register(request):
         
         admi=Person(name=name,mobile=mobile)
         admi.save()
+    form = EmployeeForm()
+
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
         return redirect('login')
-    return render(request, 'signup.html',)
+
+    context = {
+        'form': form,
+    }    
+
+        
+    return render(request, 'signup.html',context)
 
 def get_otp():
     otp = ""
@@ -75,22 +87,15 @@ def Wallet(request,mobile):
     data = Person.objects.filter(mobile=mobile).first()
     request.session['mobile']=mobile 
     
-
+    
     return render(request,"wallet.html",{"Data":data})
     
 
 def add(request,mobile):
     request.session['mobile']=mobile 
-    Add=Person.objects.get(mobile=mobile) 
+    Add=Person.objects.get(mobile=mobile)
+   
     
-    #     account_number=request.POST['account_number']
-    #     add_money=request.POST['add_money']
-
-    #     gift=wallet(account_number=account_number,add_money=add_money)
-    #     gift.save()
-
-          
-            
     ID={"add":Add}   
     return render(request,"add.html",ID) 
 
@@ -112,6 +117,27 @@ def withdraw(request,mobile):
 #         'form': form,
 #     }        
 #     return render(request,"edit.html",context)    
+        
+# def create(request):
+   
+    
+#     return render(request, 'create_bank_details.html',context)
 
+def edit(request, mobile):
+    request.session['mobile']=mobile
+    employee = Person.objects.get(mobile=mobile)
+    form = EmployeeForm(instance=employee)
+
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('wallet',mobile)
+
+    context = {
+        'employee': employee,
+        'form': form,
+    }
+    return render(request, 'update_bank_details.html',context)    
 
 

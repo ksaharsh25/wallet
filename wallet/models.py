@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
     
 
 class Person(models.Model):
-    mobile=models.IntegerField(max_length=100,editable=False,null=False,primary_key=True)
+    mobile=models.IntegerField(max_length=100,editable=False,null=True)
     otp=models.IntegerField(max_length=100,blank=True,null=True)
     email=models.EmailField(max_length=100,blank=True)
     name=models.CharField(max_length=100,blank=True)
@@ -15,7 +15,7 @@ class Person(models.Model):
     
     
 class wallet(models.Model):
-    use=models.OneToOneField(Person,on_delete=models.CASCADE,primary_key=True,)
+    use=models.OneToOneField(Person,on_delete=models.CASCADE,unique=True,editable=False,null=True)
     account_number= models.IntegerField(max_length=100,blank=True,null=True)
     Balance=models.IntegerField(blank=True,null=True) 
     add_money= models.IntegerField(max_length=100,null=True,blank=True)
