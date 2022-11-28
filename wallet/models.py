@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
     
 
 class Person(models.Model):
-    mobile=models.IntegerField(max_length=100,null=True)
+    mobile=models.IntegerField(max_length=100,null=True,unique=True)
     otp=models.IntegerField(max_length=100,blank=True,null=True)
     email=models.EmailField(max_length=100,blank=True)
     name=models.CharField(max_length=100,blank=True)
@@ -15,10 +15,10 @@ class Person(models.Model):
     
     
 class wallet(models.Model):
-    use=models.OneToOneField(Person,on_delete=models.CASCADE,primary_key=True)
-    # account_number= models.IntegerField(max_length=100,blank=True,null=True)
+    use=models.OneToOneField(Person,on_delete=models.CASCADE,primary_key=True,blank=True)
+    account_number= models.IntegerField(max_length=100,blank=True,null=True)
     
-    
+    send_money=models.IntegerField(max_length=100,blank=True,null=True)
     
     def _str_(self):
         return str(self.use) 
@@ -28,6 +28,9 @@ class wallet(models.Model):
 
     def name(self):
         return self.use.name         
+
+class bank(models.Model):
+    Transaction_ID=models.OneToOneField(wallet,on_delete=models.CASCADE,primary_key=True,blank=True)    
 
 def create_wallet(sender,instance,created,**kwargs):
     if created:

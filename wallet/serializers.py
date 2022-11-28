@@ -4,7 +4,7 @@ from .models import *
 class API(serializers.ModelSerializer):
     class Meta:
         model=wallet
-        fields=('use',)
+        fields=('use','Transaction_ID')
 
 class API(serializers.ModelSerializer):
     class Meta:

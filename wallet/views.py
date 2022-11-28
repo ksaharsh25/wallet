@@ -1,22 +1,22 @@
 from django.shortcuts import render,redirect,HttpResponse
 from wallet.models import *
 import random 
-from .forms import *
-from django.views.decorators.csrf import csrf_exempt
-
-from django.views.decorators.csrf import csrf_protect
 
 def register(request):
     
     if request.method=="POST":
-        name=request.POST['name']
-        mobile=request.POST['mobile']
-        
-        admi=Person(name=name,mobile=mobile)
-        
-        admi.save()
-        
-        return redirect('login')
+        try:
+            
+            name=request.POST['name']
+            mobile=request.POST['mobile']
+            
+            admi=Person(name=name,mobile=mobile)
+            
+            admi.save()
+            
+        except admi.unique_error_message:
+            print("Error!")
+        return redirect('login')    
         
     return render(request, 'signup.html')
 
@@ -105,3 +105,22 @@ def withdraw(request,mobile):
          user.save()
          return redirect("wallet",mobile) 
     return render(request,"withdraw.html")
+
+
+
+def bank_transfer(request):
+    if request.method=="POST":
+        account_number=request.POST['account_number']
+        send_money=request.POST['send_money']
+        bank=wallet(account_number=account_number,send_money=send_money)
+        bank.save()
+        return redirect('transaction_done')
+        
+    
+    return render(request,"banktransfer.html")
+
+def transaction_done(request,Transaction_ID):
+    request.session['Transaction_ID']=Transaction_ID
+    transaction=bank.objects.get(Transaction_ID=Transaction_ID)
+    transaction.save()      
+    return render(request,"transaction_done.html",transaction)

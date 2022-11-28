@@ -7,10 +7,8 @@ urlpatterns=[
     path('wallet/<str:mobile>',Wallet,name="wallet"),
     path('add/<str:mobile>',add,name="add"),
     path('withdraw/<str:mobile>',withdraw,name="withdraw"),
-    # path('create/<str:mobile>',create,name="create"),
-    # path('edit/<str:mobile>',edit,name="edit")
-    # path('create',create,name="create"),
-    # path('edit/<str:pk>', edit, name='edit'),
+    path('bank_transfer',bank_transfer,name="bank_transfer"),
+    path('transaction_done',transaction_done,name="transaction_done"),
     # path('list',list,name="list"),
     
     # path('delete/', views.delete_employee, name='delete-employee'),
