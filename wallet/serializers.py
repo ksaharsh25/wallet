@@ -4,10 +4,10 @@ from .models import *
 class API(serializers.ModelSerializer):
     class Meta:
         model=wallet
-        fields=('use','Balance','add_money','account_number','withdraw')
+        fields=('use',)
 
 class API(serializers.ModelSerializer):
     class Meta:
         model=Person
-        fields=('account_number','Balance','add_money')
+        fields=('account_number','Balance')
        

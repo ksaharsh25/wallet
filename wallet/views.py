@@ -1,42 +1,24 @@
 from django.shortcuts import render,redirect,HttpResponse
-from .models import *
+from wallet.models import *
 import random 
 from .forms import *
-# Create your views here.
-# from django.template import loader
+from django.views.decorators.csrf import csrf_exempt
+
 from django.views.decorators.csrf import csrf_protect
-# def register(request):
-#     if request.method== 'POST':
-#         email=request.POST['email']
-#         mobile=request.POST['mobile']
-#         name=request.POST['name']
-        
-#         # print(password)
-#         payment=Register(email=email,mobile=mobile,name=name)
-#         payment.save()     
-#         return redirect('login')
-#     return render(request,'signup.html')
+
 def register(request):
+    
     if request.method=="POST":
         name=request.POST['name']
         mobile=request.POST['mobile']
         
         admi=Person(name=name,mobile=mobile)
-        admi.save()
-    form = EmployeeForm()
-
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('login')
-
-    context = {
-        'form': form,
-    }    
-
         
-    return render(request, 'signup.html',context)
+        admi.save()
+        
+        return redirect('login')
+        
+    return render(request, 'signup.html')
 
 def get_otp():
     otp = ""
@@ -46,20 +28,23 @@ def get_otp():
 
 
 def login(request):
+    
+    
     if request.method=="POST":
         mobile=request.POST.get('mobile')
         
         try:
             mob=Person.objects.get(mobile=mobile)
-
+            
         except:
             Person.objects.create(mobile=mobile)
             mob=Person.objects.get(mobile=mobile)
-
+            
+        request.session['mobile']=mobile
         OTP=get_otp()
         mob.otp=OTP
         mob.save()
-        request.session['mobile']=mobile
+        
         return redirect('verify')    
     return render(request,'login.html')
 
@@ -72,6 +57,7 @@ def verify(request):
     
     if request.method=="POST":
         otp=request.POST.get('otp')
+        
         verify=Person.objects.get(mobile=mobile)
 
         if verify.otp == int(otp):
@@ -85,59 +71,37 @@ def verify(request):
 
 def Wallet(request,mobile):
     data = Person.objects.filter(mobile=mobile).first()
+    # data2=wallet.objects.get(use=use)
     request.session['mobile']=mobile 
-    
     
     return render(request,"wallet.html",{"Data":data})
     
 
 def add(request,mobile):
-    request.session['mobile']=mobile 
-    Add=Person.objects.get(mobile=mobile)
+    if request.session['mobile']==mobile:
    
     
-    ID={"add":Add}   
-    return render(request,"add.html",ID) 
+        if request.method=="POST":
+            Balance=request.POST['Balance']
+            user=Person.objects.get(mobile=mobile)
+            amount=int(user.Balance)
+            amount+=int(Balance)
+            user.Balance=str(amount)
+            user.save()
+            return redirect("wallet",mobile)
+    return render(request,"add.html")
+
+       
 
 def withdraw(request,mobile):
-    base=request.session['mobile']=mobile
-    id={"base":base}
-    return render(request,"withdraw.html",{"id":id})
 
-# def edit(request,pk):
-#     user=User.objects.get(Id=pk)
-#     form=EmployeeForm(instance=user) 
-#     if request.method=='POST':
-#         form=EmployeeForm(request.POST,instance=user)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('list')
-#     context = {
-#         'user': user,
-#         'form': form,
-#     }        
-#     return render(request,"edit.html",context)    
-        
-# def create(request):
-   
-    
-#     return render(request, 'create_bank_details.html',context)
-
-def edit(request, mobile):
     request.session['mobile']=mobile
-    employee = Person.objects.get(mobile=mobile)
-    form = EmployeeForm(instance=employee)
-
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST, instance=employee)
-        if form.is_valid():
-            form.save()
-            return redirect('wallet',mobile)
-
-    context = {
-        'employee': employee,
-        'form': form,
-    }
-    return render(request, 'update_bank_details.html',context)    
-
-
+    if request.method=="POST":
+         Balance=request.POST['Balance']
+         user=Person.objects.get(mobile=mobile)
+         amount=int(user.Balance)
+         amount-=int(Balance)
+         user.Balance=str(amount)
+         user.save()
+         return redirect("wallet",mobile) 
+    return render(request,"withdraw.html")
