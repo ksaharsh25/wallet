@@ -12,7 +12,7 @@ class Person(models.Model):
     Balance=models.IntegerField(blank=True,null=True) 
     Bank_name=models.IntegerField(max_length=50,blank=True,null=True)
     IFSC_Code=models.CharField(max_length=100,blank=True)
-    
+    # transaction_id=models.IntegerField(max_length=50,blank=True)
     
 class wallet(models.Model):
     use=models.OneToOneField(Person,on_delete=models.CASCADE,primary_key=True,blank=True)
@@ -30,7 +30,7 @@ class wallet(models.Model):
         return self.use.name         
 
 class bank(models.Model):
-    Transaction_ID=models.OneToOneField(wallet,on_delete=models.CASCADE,primary_key=True,blank=True)    
+    Transaction_ID=models.OneToOneField(wallet,on_delete=models.CASCADE,null=True)    
 
 def create_wallet(sender,instance,created,**kwargs):
     if created:

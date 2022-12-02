@@ -14,7 +14,7 @@ def register(request):
             
             admi.save()
             
-        except admi.unique_error_message:
+        except admi.DoesNotExist:
             print("Error!")
         return redirect('login')    
         
@@ -72,7 +72,8 @@ def verify(request):
 def Wallet(request,mobile):
     data = Person.objects.filter(mobile=mobile).first()
     # data2=wallet.objects.get(use=use)
-    request.session['mobile']=mobile 
+    request.session['mobile']=mobile
+     
     
     return render(request,"wallet.html",{"Data":data})
     
@@ -112,15 +113,19 @@ def bank_transfer(request):
     if request.method=="POST":
         account_number=request.POST['account_number']
         send_money=request.POST['send_money']
-        bank=wallet(account_number=account_number,send_money=send_money)
+        bank=wallet.objects.get(account_number=account_number)
+        sent=int(bank.send_money)
+        sent += int(send_money)
+        bank.send_money=str(sent)
         bank.save()
         return redirect('transaction_done')
-        
+            
     
     return render(request,"banktransfer.html")
 
-def transaction_done(request,Transaction_ID):
-    request.session['Transaction_ID']=Transaction_ID
+def transaction_done(request):
+    # request.session['Transaction_ID']=Transaction_ID
     transaction=bank.objects.get(Transaction_ID=Transaction_ID)
+    
     transaction.save()      
     return render(request,"transaction_done.html",transaction)

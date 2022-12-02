@@ -7,7 +7,7 @@ class PaymentAdmin(admin.ModelAdmin):
 
 @admin.register(wallet)  
 class WalletAdmin(admin.ModelAdmin):
-    list_display=['use']
+    list_display=['use',]
 
 @admin.register(bank)
 class BankAdmin(admin.ModelAdmin):
