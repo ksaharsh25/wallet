@@ -110,10 +110,11 @@ def withdraw(request,mobile):
 
 
 def bank_transfer(request):
+    
     if request.method=="POST":
         account_number=request.POST['account_number']
         send_money=request.POST['send_money']
-        bank=wallet.objects.get(account_number=account_number)
+        bank=wallet(account_number=account_number,send_money=send_money)
         sent=int(bank.send_money)
         sent += int(send_money)
         bank.send_money=str(sent)
@@ -124,8 +125,5 @@ def bank_transfer(request):
     return render(request,"banktransfer.html")
 
 def transaction_done(request):
-    # request.session['Transaction_ID']=Transaction_ID
-    transaction=bank.objects.get(Transaction_ID=Transaction_ID)
-    
-    transaction.save()      
-    return render(request,"transaction_done.html",transaction)
+         
+    return render(request,"transaction_done.html")

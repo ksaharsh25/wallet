@@ -10,7 +10,6 @@ urlpatterns=[
     path('bank_transfer',bank_transfer,name="bank_transfer"),
     path('transaction_done',transaction_done,name="transaction_done"),
     # path('list',list,name="list"),
-    
-    # path('delete/', views.delete_employee, name='delete-employee'),
+
 
 ]
