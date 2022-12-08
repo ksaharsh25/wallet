@@ -3,7 +3,7 @@ from .models import *
 # Register your models here.
 @admin.register(Person)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display=['mobile','otp','name','Balance']
+    list_display=['mobile','otp','name','Balance','email']
 
 @admin.register(wallet)  
 class WalletAdmin(admin.ModelAdmin):
@@ -11,6 +11,6 @@ class WalletAdmin(admin.ModelAdmin):
 
 @admin.register(bank)
 class BankAdmin(admin.ModelAdmin):
-    list_display=['Transaction_ID']      
+    list_display=['account_number','send_money']      
 
    

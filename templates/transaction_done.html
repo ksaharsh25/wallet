@@ -14,25 +14,15 @@
 <form method="post" >
   {%csrf_token%}
   
- 
- 
-
-
 	<div class="wallet-container text-center">
 		<!-- <p class="page-title"><i class="fa fa-align-left"></i>My {{Data.mobile}} <i class="fa fa-user"></i></p> -->
 		<div class="amount-box text-center">
 			
 			<p>Amount transferred</p>
-			<h1>{{transaction.send_money}}</h1>   
+			<h1>{{transfer.send_money}}</h1>   
 		</div>
 		
-		<div class="btn-group text-center">
-			
-			<a class="btn btn-primary" href="{% url 'add' Data.mobile %}" role="button">Add money</a>
-
-
-			<a class="btn btn-primary" href="{% url 'withdraw' Data.mobile %}" role="button">Withdraw money</a>
-			</div>
+		
 
 			<div class="txn-history">
 				<p><b>History</b></p>

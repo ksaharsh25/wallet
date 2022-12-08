@@ -8,7 +8,7 @@ urlpatterns=[
     path('add/<str:mobile>',add,name="add"),
     path('withdraw/<str:mobile>',withdraw,name="withdraw"),
     path('bank_transfer',bank_transfer,name="bank_transfer"),
-    path('transaction_done',transaction_done,name="transaction_done"),
+    path('transaction_done/<str:account_number>',transaction_done,name="transaction_done"),
     # path('list',list,name="list"),
 
 

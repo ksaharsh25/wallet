@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect,HttpResponse
 from wallet.models import *
 import random 
-
+from django.views.decorators.csrf import csrf_exempt
+from twilio.twiml.messaging_response import MessagingResponse
 def register(request):
     
     if request.method=="POST":
@@ -24,6 +25,7 @@ def get_otp():
     otp = ""
     for i in range(4):
         otp += str(random.randint(1,9))
+  
     return otp
 
 
@@ -114,16 +116,33 @@ def bank_transfer(request):
     if request.method=="POST":
         account_number=request.POST['account_number']
         send_money=request.POST['send_money']
-        bank=wallet(account_number=account_number,send_money=send_money)
-        sent=int(bank.send_money)
+        ban=bank(account_number=account_number,send_money=send_money)
+        sent=int(ban.send_money)
         sent += int(send_money)
-        bank.send_money=str(sent)
-        bank.save()
-        return redirect('transaction_done')
+        ban.send_money=str(sent)
+        ban.save()
+        return redirect('transaction_done',account_number)
             
     
     return render(request,"banktransfer.html")
 
-def transaction_done(request):
+def transaction_done(request,account_number):
+    request.session['account_number']=account_number
+    transfer=bank.objects.filter(account_number=account_number).first()
+    detail={'transfer':transfer}
          
-    return render(request,"transaction_done.html")
+    return render(request,"transaction_done.html",detail)
+
+# @csrf_exempt
+# def message(request):
+#     user=request.POST.get('From')
+#     message=request.POST.get('Body')
+#     print(f'Hi {user}. Here is your {message}')
+#     response = MessagingResponse()
+#     response.message('Thank for your message! A member of our team will be '
+#                      'in touch with you soon.')
+#     return HttpResponse(str(response)) 
+
+    
+    
+       

@@ -1,87 +1,12 @@
-
 {% load static %}
 {% block content %}
 <html>
-	<style>
-		@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-body {
-    font-family: "Open Sans", sans-serif;
-    margin: 0;
-}
-a {
-    text-decoration: none;
-    color: #000;
-}
-a:hover {
-    color: rgb(179, 179, 179);
-}
-.site-header {
-    border-bottom: 1px solid #ccc;
-    padding: 0.5em 1em;
-    display: flex;
-    justify-content: space-between;
-}
-.site-identity h1 {
-    font-size: 1.5em;
-    margin: 0.6em 0;
-    display: inline-block;
-}
-.site-navigation ul,
-.site-navigation li {
-    margin: 0;
-    padding: 0;
-}
-.site-navigation li {
-    display: inline-block;
-    margin: 1.4em 1em 1em 1em;
-}
-
-.dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-	</style>
-
+	
 	<head>
+		<link rel="stylesheet" href="{% static 'assets/css/wall.css' %} ">
+		<link rel="stylesheet" href="{% static 'assets/css/util.css' %}">
+		<!-- <script type="java" src="{% static 'assets/javascript/wallet.js' %}"></script>   -->
+		</script>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -89,25 +14,36 @@ a:hover {
     </head>
     <body>
         <header class="site-header">
-            <div class="site-identity">
-                <h1><a href="#">Timepay</a></h1>
-            </div>
+			
+			<!-- <img src="{% static 'assets/images/profile.jpg' %}" style="width:5rem;height:5rem;border-radius: 50%;" class="openbtn" onclick="openNav()"> -->
+            <div id="mySidepanel" class="sidepanel" style="text-align:center;width:20%">
+				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
+				<img src="{{Data.image.url}}"  style="width:4rem;height:4rem;border-radius: 50%; ">
+				<br><br>
+				<img src={{Data.qr_code.url}} alt="Error"  style="width:40%;height:30%;">
+				<br>
+				<h3 style="color:white;">{{Data.name}}</h3>
+				<h5 style="color:white;">UPI-ID:{{Data.mobile}}@timepay</h5>
+				
+			  </div>
+			  
+			  <img src="{% static 'assets/images/profile.jpg' %}" class="openbtn" onclick="openNav()"> 
+			<h1><a href="#">Timepay</a></h1>
             <nav class="site-navigation">
                 <ul class="nav">
-                    <li><a href="#">Home</a></li>
+                    
                     <li><a href="#">About</a></li>
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
-				<div class="dropdown">
-					<button onclick="myFunction()" class="dropbtn">{{Data.name}}</button>
-					<div id="myDropdown" class="dropdown-content">
-						<img src={{Data.qr_code.url}} alt="Error">
+				
+					<!-- <div id="myDropdown" class="dropdown-content">
+						
 					  <a href="#">{{Data.mobile }}@timepay</a>
 					  <a href="#">Link 2</a>
 					  <a href="#">Link 3</a>
 					</div>
-				  </div>
+				  </div> -->
             </nav>
         </header>
     </body>
@@ -116,10 +52,6 @@ a:hover {
 
 <form method="post" >
   {%csrf_token%}
-  
- 
- 
-
 
 	<div class="wallet-container text-center">
 		<p class="page-title"><i class="fa fa-align-left"></i> {{Data.name}} <i class="fa fa-user"></i></p>
@@ -172,32 +104,22 @@ a:hover {
 				</div>
 			</div>
 </div>
-
-
-</form>
 <script>
-	/* When the user clicks on the button, 
-	toggle between hiding and showing the dropdown content */
-	function myFunction() {
-	  document.getElementById("myDropdown").classList.toggle("show");
+	function openNav() {
+	  document.getElementById("mySidepanel").style.width = "250px";
 	}
 	
-	// Close the dropdown if the user clicks outside of it
-	window.onclick = function(event) {
-	  if (!event.target.matches('.dropbtn')) {
-		var dropdowns = document.getElementsByClassName("dropdown-content");
-		var i;
-		for (i = 0; i < dropdowns.length; i++) {
-		  var openDropdown = dropdowns[i];
-		  if (openDropdown.classList.contains('show')) {
-			openDropdown.classList.remove('show');
-		  }
-		}
-	  }
+	function closeNav() {
+	  document.getElementById("mySidepanel").style.width = "0";
 	}
 	</script>
+
+</form>
+
 	
 </body>
+
+
 </html>
 
 
