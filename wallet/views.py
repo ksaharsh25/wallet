@@ -3,11 +3,12 @@ from wallet.models import *
 import random 
 from django.views.decorators.csrf import csrf_exempt
 from twilio.twiml.messaging_response import MessagingResponse
+from django.contrib.auth.decorators import login_required
+
 def register(request):
     
     if request.method=="POST":
-        try:
-            
+        try:  
             name=request.POST['name']
             mobile=request.POST['mobile']
             
@@ -30,7 +31,6 @@ def get_otp():
 
 
 def login(request):
-    
     
     if request.method=="POST":
         mobile=request.POST.get('mobile')
@@ -132,17 +132,26 @@ def transaction_done(request,account_number):
     detail={'transfer':transfer}
          
     return render(request,"transaction_done.html",detail)
+@login_required
+def inbox(request):
+    user=request.user
+    messages=Message.get_messages(user=user)  
+    active_direct=None
+    directs=None
 
-# @csrf_exempt
-# def message(request):
-#     user=request.POST.get('From')
-#     message=request.POST.get('Body')
-#     print(f'Hi {user}. Here is your {message}')
-#     response = MessagingResponse()
-#     response.message('Thank for your message! A member of our team will be '
-#                      'in touch with you soon.')
-#     return HttpResponse(str(response)) 
+    if messages:
+        message=messages[0]
+        active_direct=message['user'].username
+        directs=Message.objects.filter(user=user,recipient=message['user'])
+        directs.update(is_read=True)
+        for message in messages:
+            if message['user'].username == "active_direct":
+                message['unread']=0
+        context={
+            'directs':directs,
+            'messages':messages,
+            'active_direct':active_direct,
+          
 
-    
-    
-       
+        } 
+    template= loader.get_template             
