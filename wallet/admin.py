@@ -3,7 +3,7 @@ from .models import *
 # Register your models here.
 @admin.register(Person)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display=['mobile','otp','name','Balance','email']
+    list_display=['mobile','otp','name','Balance','email','marks']
 
 @admin.register(wallet)  
 class WalletAdmin(admin.ModelAdmin):

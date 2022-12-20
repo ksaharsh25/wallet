@@ -151,7 +151,32 @@ def inbox(request):
             'directs':directs,
             'messages':messages,
             'active_direct':active_direct,
-          
+            } 
+    # template= loader.get_template             
+def marks(request,mobile):
+    request.session['mobile']=mobile
+    mark=Person.objects.get(mobile=mobile)
+    if request.method=="POST":
+        
+        mark.marks=int(mark.physics)+int(mark.chemistry)+int(mark.maths)+int(mark.english)
+        mark.save()
+    
+    return render(request,"marks.html",{"mark":mark})
 
-        } 
-    template= loader.get_template             
+def points1(request,mobile):
+    request.session['mobile']==mobile
+    point1=Person.objects.get(mobile=mobile)
+    if int(100)<=point1.marks<int(200):
+    
+        point1.marks= int(point1.marks)-int(100)
+        point1.save()
+    else:
+        print("Error")
+    return render(request,"points1.html",{"point1":point1})   
+
+def points2(request,mobile):
+    
+    point2=Person.objects.get(mobile=mobile)
+    if point2.marks>=int(200):
+       point2.marks= int(point2.marks)-int(200)
+    return render(request,"points2.html",{"point2":point2})      

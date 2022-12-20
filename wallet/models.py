@@ -18,6 +18,11 @@ class Person(models.Model):
     IFSC_Code=models.CharField(max_length=100,blank=True)
     qr_code=models.ImageField(upload_to='images',blank=True)
     image=models.ImageField(upload_to="images",blank=True)
+    physics=models.IntegerField(max_length=50,blank=True,null=True,default="0")
+    chemistry=models.IntegerField(max_length=50,blank=True,null=True,default="0")
+    maths=models.IntegerField(max_length=50,blank=True,null=True,default="0")
+    english=models.IntegerField(max_length=50,blank=True,null=True,default="0")
+    marks=models.IntegerField(max_length=5,blank=True,null=True,default="0")
     # transaction_id=models.IntegerField(max_length=50,blank=True)
     def __str__(self):
         return str(self.name)

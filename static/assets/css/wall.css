@@ -1,13 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-body {
-    font-family: "Open Sans", sans-serif;
-    margin: 0;
-}
-a {
+
+/* a {
     text-decoration: none;
     color: #000;
-}
-a:hover {
+} */
+/* a:hover {
     color: rgb(179, 179, 179);
 }
 .site-header {
@@ -30,9 +27,7 @@ a:hover {
     display: inline-block;
     margin: 1.4em 1em 1em 1em;
 }
-body {
-    font-family: "Lato", sans-serif;
-  }
+
   
   .sidepanel  {
     width: 0;
@@ -69,15 +64,111 @@ body {
   
   .openbtn {
     /* font-size: 20px; */
-    cursor: pointer;
+    /* cursor: pointer; */
     /* background-color: #111; */
-    color: white;
+    /* color: white;
     width:5rem;
     height:5rem;
     
     border-radius: 50%;
+  } */
+  
+  /* .openbtn:hover {
+    background-color:#444;
+  }  */
+  body {
+    background-color: #3fb0ef !important;
+    
   }
   
-  .openbtn:hover {
-    background-color:#444;
+  .wallet-container {
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjOvSperRYjHH9-EHlKZJBfwvXy4rJpyerzHQsnp8DuuycYU5_);
+      width: 320px;
+      color: #fff;
+      font-size: 15px;
+      padding: 20px 20px 0;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      position: absolute;
+    
+    
+  }
+  
+  .page-title {
+    text-align: left;
+  }
+  
+  .fa-user {
+    float: right;
+  }
+  
+  .fa-align-left {
+    margin-right: 15px;
+  }
+  
+  .amount-box img {
+    width: 50px;
+  }
+  
+  .amount {
+    font-size: 35px;
+  }
+  
+  .amount-box p {
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+  
+  .btn-group {
+    margin: 20px 0;
+  }
+  
+  .btn-group .btn {
+    margin: 8px;
+    border-radius: 20px !important;
+    font-size: 12px;
+  }
+  
+  .txn-history {
+    text-align: left;
+  }
+  
+  .txn-list {
+    background-color: #fff;
+    padding: 12px 10px; 
+    color: #777;
+    font-size: 14px;
+    margin: 7px 0;
+  }
+  
+  .debit-amount {
+    color: red;
+    float: right;
+  }
+  
+  .credit-amount {
+    color: green;
+    float: right;
+  
+  }
+  
+  .footer-menu {
+    margin: 20px -20px 0;
+    bottom: 0;
+    border-top: 1px solid #ccc;
+    padding: 10px 10px 0;
+  }
+  
+  .footer-menu p {
+    font-size: 12px;
+  }
+  
+  @media screen and (max-width: 800px){
+    .wallet-container {
+      height: 115%;
+      bottom: 20px;
+      margin-top: 100px;
+    }
+    
   }

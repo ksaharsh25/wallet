@@ -29,19 +29,18 @@
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="#" class="login">
+               <form action="#" class="login" method="post">
+                  {% csrf_token %}
                   <div class="field">
-                     <input type="text" placeholder="Email Address" required>
+                     <input type="text" placeholder="name" name="name" required>
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="Password" required>
+                     <input type="number" placeholder="mobile number" name="mobile" required>
                   </div>
-                  <div class="pass-link">
-                     <a href="#">Forgot password?</a>
-                  </div>
+                
                   <div class="field btn">
                      <div class="btn-layer"></div>
-                     <input type="submit" value="Login">
+                     <input type="submit" value="Register">
                   </div>
                   <div class="signup-link">
                      Not a member? <a href="">Signup now</a>

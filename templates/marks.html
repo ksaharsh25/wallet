@@ -1,0 +1,148 @@
+{% load static%}
+{% block content %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'assets/css/marks.css'%}">
+    </head>
+    {% for i in mark %}
+    <div class="container"> 
+        <!-- Top Navigation -->
+        <div class="cctop clearfix"> <span class="right"><a href="#"><span>Student analysis report</span></a></div>
+        <div class="wrapper">
+          <div class="cctabs">
+            <input checked id="one" name="tabs" type="radio">
+            <label for="one"><i class="fa fa-pencil-square-o"></i> Overall analysis report</label>
+            <input id="two" name="tabs" type="radio" value="Two">
+            <label for="two"><i class="fa fa-magic"></i> Services</label>
+            <input id="three" name="tabs" type="radio">
+            <label for="three"><i class="fa fa-plus-square"></i> Forms</label>
+            <input id="four" name="tabs" type="radio">
+            <label for="four"><i class="fa fa-envelope"></i> Contact</label>
+            
+            <div class="panels">
+                <div class="panel">
+                    <div class="grid cc-text-center">
+                        <div class="unit-3"> <i class="fa fa-lightbulb-o fa-3x"></i>
+                          <h3>Physics</h3>
+                          <p>{{i.physics}}/100</p>
+                         </div>
+                        <div class="unit-3"> <i class="fa fa-laptop fa-4x"></i>
+                          <h3>Chemistry</h3>
+                          <p>{{i.chemistry}}/100</p>
+                         
+                        </div>
+                        <div class="unit-3"> <i class="fa fa-laptop fa-4x"></i>
+                            <h3>Maths</h3>
+                            <p>{{i.maths}}/100</p>
+                           
+                          </div>
+                          <div class="unit-3"> <i class="fa fa-laptop fa-4x"></i>
+                            <h3>English</h3>
+                            <p>{{i.english}}/100</p>
+                           
+                          </div>
+                          <div class="unit-3"> <i class="fa fa-lightbulb-o fa-3x"></i>
+                            <h3>Total marks</h3>
+                            <p>{{i.marks}}/400</p>
+                           
+                           </div>
+                           <div class="grid cc-text-center">
+                                <div class="unit-3"> 
+                                <a class="btn btn-outline-light" href="{% url 'points1' i.mobile %}">Redeem now 1100 points</a>
+                           </div>
+                           
+                            <div class="unit-3"> 
+                            <a class="btn btn-outline-light" href="{% url 'points2' i.mobile %}">Redeem now 2200 points</a>
+                       </div>
+                        </div>
+                    </div>
+                       
+                </div>
+             
+                <div class="panel">
+                    <div class="grid cc-text-center">
+                        
+                  <div class="unit-3"> <i class="fa fa-laptop fa-4x"></i>
+                    <h3>Responisve Tabs Menu</h3>
+                    <p>These tabs are full responsive and work well on all kind of devices.</p>
+                    <a href="#">Read more ...</a> </div>
+                  <div class="unit-3"> <i class="fa fa-leaf fa-4x"></i>
+                    <h3>Superb Design Layout</h3>
+                    <p>Let's get to know more about these CSS Tabs Menu like how you can build step by step.</p>
+                    <a href="#">Read more ...</a> </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="headline">
+                  <h1>What we offer ?</h1>
+                  <hr>
+                  <p class="lead">We provide best solution for your business</p>
+                </div>
+                <p>Nam sodales, mi eu convallis adipiscing, ligula justo consectetur tellus, tincidunt vestibulum tortor elit a augue. Ut elementum ultricies orci, vel luctus neque varius in. Phasellus turpis nunc, eleifend ac fringilla at, malesuada in eros.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel leo sem. Sed nec quam sit amet lorem volutpat ullamcorper ut sed massa. Sed vel felis velit. Nullam et turpis sed dui auctor vehicula quis a dui.</p>
+                <p>Aliquam vitae leo et sapien volutpat accumsan quis eget turpis. Etiam ac metus vitae purus semper pretium. Curabitur id nisl nisl. Cras ut massa sed dolor ullamcorper consequat ut sed dolor.</p>
+              </div>
+              <div class="panel">
+                <div class="unit-2">
+                  <h4>Contact Us From</h4>
+                  <form id="cc-contact" action="" method="post">
+                    <input placeholder="your name" type="text" tabindex="1" autofocus>
+                    <input placeholder="Email Address" type="email" tabindex="2" required>
+                    <input placeholder="Phone Number" type="tel" tabindex="3" required>
+                    <input placeholder="Webite" type="text" tabindex="4" required>
+                    <textarea placeholder="Type your Message Here...." tabindex="5" required></textarea>
+                    <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+                  </form>
+                </div>
+                <div class="unit-2">
+                  <h4>Registratoin From</h4>
+                  <form id="cc-contact" action="" method="post">
+                    <input placeholder="username" type="text" tabindex="1" required autofocus>
+                    <input placeholder="Email Address" type="email" tabindex="1" required autofocus>
+                    <input placeholder="Password" type="password" tabindex="2" required>
+                    <button name="submit" type="submit" >Register</button>
+                  </form>
+                  <h4>Login From</h4>
+                  <form id="cc-contact" action="" method="post">
+                    <input placeholder="Email Address" type="email" tabindex="1" required autofocus>
+                    <input placeholder="Password" type="password" tabindex="2" required>
+                    <button name="submit" type="submit" >Login</button>
+                  </form>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="unit-2">
+                  <form id="cc-contact" action="" method="post">
+                    <input placeholder="your name" type="text" tabindex="1" autofocus>
+                    <input placeholder="Email Address" type="email" tabindex="2" required>
+                    <input placeholder="Phone Number" type="tel" tabindex="3" required>
+                    <input placeholder="Webite" type="text" tabindex="4" required>
+                    <textarea placeholder="Type your Message Here...." tabindex="5" required></textarea>
+                    <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+                  </form>
+                </div>
+                <div class="unit-2">
+                  <div id="map-canvas"></div>
+                </div>
+                <div class="unit-1 cc-text-center cc-mt-20">
+                  <div class="unit-3"> <i class="fa fa-map-marker fa-2x"></i>
+                    <p>Post Code 45600, USA NY</p>
+                  </div>
+                  <div class="unit-3"> <i class="fa fa-phone fa-2x"></i>
+                    <p> <strong>Phone:</strong> (+55) 555 5555 <br>
+                      <strong>Mobile:</strong> (+33) 333 5555 </p>
+                  </div>
+                  <div class="unit-3"> <i class="fa fa-envelope-o fa-2x"></i>
+                    <p> <strong>Email:</strong> <a href="mailto:info@codeconvey.com">info@codeconvey.com</a> <br>
+                      <strong>Skype:</strong> skypeID </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+</html>
+
+   {% endblock %}
